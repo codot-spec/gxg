@@ -2,70 +2,39 @@
 <html lang="en">
 
 <head>
-<meta charset="UTF-8" />
-<meta http-equiv="X-UA-Compatible" content="IE=edge" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Expense Details</title>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Expense Tracker</title>
+  <link rel="stylesheet" href="style.css">
 </head>
+
 <body style="margin: 0">
-   <form onsubmit="handleFormSubmit(event)">
-    <label for="amount">Choose Expense Amount</label>
-    <input type="number" name="amount" id="amount" />
-    <label for="description" >Choose Description</label>
-    <input type="text" name="description" id="description"/>
-    <label for="category">Select a category</label>
-    <select id="category" name="category">
+  <header>
+    <h1>Expense Tracker</h1>
+  </header>
+  <form id="expenseForm" onsubmit="handleFormSubmit(event)">
+    <div class="form-group">
+      <label for="amount">Choose Expense Amount</label>
+      <input type="number" name="amount" id="amount" />
+    </div>
+    <div class="form-group">
+      <label for="description">Choose Description</label>
+      <input type="text" name="description" id="description" />
+    </div>
+    <div class="form-group">
+      <label for="category">Select a category</label>
+      <select id="category" name="category">
         <option value="food">Food</option>
         <option value="fuel">Fuel</option>
-        <option value="food">Electricity</option>
+        <option value="electricity">Electricity</option>
         <option value="movie">Movie</option>
-    </select>
-        <button type="submit">Add Expense</button>
-    </form>
-    <ul></ul>
-    <script>
-        function handleFormSubmit(event)
-        {
-            event.preventDefault();
-            console.log("Form Submitted");
-            const amount=event.target.amount.value;
-            const description=event.target.description.value;
-            const category=event.target.category.value;
-            const obj={
-                amount,
-                description,
-                category
-            }
-            localStorage.setItem(obj.description,JSON.stringify(obj));
-            showUserOnScreen(obj);
-        }
-        function showUserOnScreen(obj)
-        {
-            const parentele=document.querySelector('ul');
-            const childele=document.createElement('li');
-            childele.textContent=obj.amount + '-' + obj.description+ '-' + obj.category;
-            const deleteBtn=document.createElement('button');
-            deleteBtn.onclick=()=>{
-                localStorage.removeItem(obj.desciption);
-                parentele.removeChild(childele);
-            }
-           const editBtn=document.createElement('button');
-           editBtn.textContent="Edit";
-           editBtn.onclick=()=>{
-            const inputamount=document.getElementById('amount');
-            event.target.value.inputamount=obj.amount;
-            const inputdescription=document.getElementById('description');
-            event.target.value.inputdescription=obj.description;
-            const inputcategory=document.getElelmentById('category');
-            event.target.value.inputcategory=obj.category;
-            localStotage.removeItem(obj.description);
-            parentele.removeChild(childele);
-           }
-           childele.appendChild(editBtn);
-           childele.appendChild(deleteBtn);
-           parentele.appendChild(childele);
-        }
-    </script>
+      </select>
+    </div>
+    <button type="submit">Add Expense</button>
+  </form>
+  <ul id="expenses"></ul>
+  <script src="script.js"></script>
 </body>
 
 </html>

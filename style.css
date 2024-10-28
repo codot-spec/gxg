@@ -1,0 +1,45 @@
+/* style.css */
+
+body {
+  font-family: sans-serif;
+}
+
+header {
+  background-color: #ddd;
+  text-align: center;
+  padding: 20px;
+}
+
+h1 {
+  font-weight: bold;
+  color: black;
+}
+
+.form-group {
+  background-color: #f2f2f2;
+  padding: 10px;
+  margin-bottom: 15px;
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: 5px;
+}
+
+#expenses {
+  list-style: none;
+  padding: 0;
+}
+
+#expenses li {
+  margin-bottom: 10px;
+  padding: 10px;
+  background-color: #f2f2f2;
+}
+
+/* New CSS for grouping form elements */
+.form-container {
+  background-color: #f2f2f2;
+  padding: 20px;
+  border-radius: 5px;
+}
