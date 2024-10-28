@@ -8,72 +8,64 @@
 <title>Expense Details</title>
 </head>
 <body style="margin: 0">
-    <form id="handle">
-      <label for="expensename">Expense Name</label>
-      <input type="text" name="expensename" id="expensename" />
-      <label for="expensedescription">Description</label>
-      <input type="text" name="expensedescription" id="expensedescription" />
-      <label for="expenseamount">Amount</label>
-      <input type="number" name="expenseamount" id="expenseamount" />
-      <button type="submit">Submit</button>
+   <form onsubmit="handleFormSubmit(event)">
+    <label for="amount">Choose Expense Amount</label>
+    <input type="number" name="amount" id="amount" />
+    <label for="description" >Choose Description</label>
+    <input type="text" name="description" id="description"/>
+    <label for="category">Select a category</label>
+    <select id="category" name="category">
+        <option value="food">Food</option>
+        <option value="fuel">Fuel</option>
+        <option value="food">Electricity</option>
+        <option value="movie">Movie</option>
+    </select>
+        <button type="submit">Add Expense</button>
     </form>
-    <ul id="listofitems"></ul>
-    <script>   const handleFormSubmit = document.getElementById("handle");
-
-        handleFormSubmit.addEventListener("submit", (event) => {
-          event.preventDefault();
-    
-          const expenseName = event.target.expensename.value;
-          const expenseDescription = event.target.expensedescription.value;
-          const expenseAmount = event.target.expenseamount.value;
-          const expenseObj = {
-        expenseName,
-        expenseDescription,
-        expenseAmount,
-      };
-
-      // Check if editing an existing expense
-      const existingItem = localStorage.getItem(expenseDescription);
-      if (existingItem) {
-        // Edit existing object
-        const parsedObj = JSON.parse(existingItem);
-        parsedObj.expenseName = expenseName;
-        parsedObj.expenseDescription = expenseDescription;
-        parsedObj.expenseAmount = expenseAmount;
-        localStorage.setItem(expenseDescription, JSON.stringify(parsedObj));
-      } else {
-        // New expense, store it
-        localStorage.setItem(expenseDescription, JSON.stringify(expenseObj));
-      }
-
-      show(expenseObj); // Update the list even for edits
-    });
-    function show(expenseObj) {
-      const userDetailsList = document.getElementById('listofitems');
-
-      const listItem = document.createElement('li');
-      listItem.textContent = `${expenseObj.expenseName} - ${expenseObj.expenseDescription} - ${expenseObj.expenseAmount}`;
-
-      const deleteButton = document.createElement('button');
-      deleteButton.textContent = 'Delete';
-      deleteButton.onclick = () => {
-        localStorage.removeItem(expenseObj.expenseDescription);   
-
-        userDetailsList.removeChild(listItem);
-      };
-      const editButton = document.createElement('button');
-      editButton.textContent = 'Edit Details';
-      editButton.onclick = () => {
-        // Pre-fill the form with existing values for edit
-        document.getElementById('expensename').value = expenseObj.expenseName;
-        document.getElementById('expensedescription').value = expenseObj.expenseDescription;
-        document.getElementById('expenseamount').value = expenseObj.expenseAmount;
-      };
-
-      listItem.appendChild(deleteButton);
-      listItem.appendChild(editButton);
-      userDetailsList.appendChild(listItem);
-    }</script>
+    <ul></ul>
+    <script>
+        function handleFormSubmit(event)
+        {
+            event.preventDefault();
+            console.log("Form Submitted");
+            const amount=event.target.amount.value;
+            const description=event.target.description.value;
+            const category=event.target.category.value;
+            const obj={
+                amount,
+                description,
+                category
+            }
+            localStorage.setItem(obj.description,JSON.stringify(obj));
+            showUserOnScreen(obj);
+        }
+        function showUserOnScreen(obj)
+        {
+            const parentele=document.querySelector('ul');
+            const childele=document.createElement('li');
+            childele.textContent=obj.amount + '-' + obj.description+ '-' + obj.category;
+            const deleteBtn=document.createElement('button');
+            deleteBtn.onclick=()=>{
+                localStorage.removeItem(obj.desciption);
+                parentele.removeChild(childele);
+            }
+           const editBtn=document.createElement('button');
+           editBtn.textContent="Edit";
+           editBtn.onclick=()=>{
+            const inputamount=document.getElementById('amount');
+            event.target.value.inputamount=obj.amount;
+            const inputdescription=document.getElementById('description');
+            event.target.value.inputdescription=obj.description;
+            const inputcategory=document.getElelmentById('category');
+            event.target.value.inputcategory=obj.category;
+            localStotage.removeItem(obj.description);
+            parentele.removeChild(childele);
+           }
+           childele.appendChild(editBtn);
+           childele.appendChild(deleteBtn);
+           parentele.appendChild(childele);
+        }
+    </script>
 </body>
 
 </html>
